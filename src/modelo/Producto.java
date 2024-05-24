@@ -1,21 +1,21 @@
 package modelo;
 
-import libreriaV2.generic;
+import libreria.Generica;
 
 public class Producto {
 	
-	generic<String, Double> dt_prd;
-	generic<Integer, String>dte_prd;
+	Generica<String, Double> dt_prd;
+	Generica<Integer, String>dte_prd;
 	
 	public Producto() {
 		
-		dt_prd = new generic<>();
-		dte_prd = new generic<>();
+		dt_prd = new Generica<>();
+		dte_prd = new Generica<>();
 	}
 	
-	public Producto(String name, String desc, double precio, int stock, String proovedor) {
-		dt_prd = new generic<>(name, desc,precio );
-		dte_prd = new generic<>(stock, proovedor);
+	public Producto(String name, String desc, double precio, int stock, String proveedor) {
+		dt_prd = new Generica<>(name, desc,precio );
+		dte_prd = new Generica<>(stock, proveedor);
 		
 	}
 	
@@ -37,6 +37,12 @@ public class Producto {
 		return dte_prd.getAtributo1();
 	}
 	
+	public String getproveedor() {
+		return dte_prd.getAtributo4();
+	}
+	
+	//setters 
+	
 	public void setname(String name_) {
 		this.dt_prd.setAtributo1(name_);
 	}
@@ -51,6 +57,9 @@ public class Producto {
 	public void setstock(int stock_) {
 		this.dte_prd.setAtributo1(stock_);
 	}
+	public void setproveedor(String proveedor_) {
+		this.dte_prd.setAtributo4(proveedor_);
+	}
 
 	@Override
 	public String toString() {
@@ -58,6 +67,9 @@ public class Producto {
 				+ ", getstock()=" + getstock() + "]";
 	}
 	
-	
+	public String Information() {
+        return String.format("%s;%s;%.2f;%d;%s", getname(), getDesc(), getprecio(), getstock(), getproveedor());
+    }
+
 
 }
