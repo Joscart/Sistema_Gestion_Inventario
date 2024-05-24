@@ -9,6 +9,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JOptionPane;
 
+import controlador.logic_Menu.VENTANA_TIPO;
 import vista.Formulario;
 
 public class logic_Formulario implements ActionListener, KeyListener, WindowListener{
@@ -16,11 +17,7 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 	private Formulario lb;
 	private boolean guardado = true;
 	
-	enum TIPO_FORMULARIO{
-		CLIENTE,PROVEEDOR,PRODUCTO,VENTA
-	};
-	
-	TIPO_FORMULARIO tipo;
+	VENTANA_TIPO tipo;
 
 	public logic_Formulario(Formulario lb) {
 		this.lb = lb;
@@ -30,11 +27,11 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 		listener();
 	}
 	
-	public TIPO_FORMULARIO getTipo() {
+	public VENTANA_TIPO getTipo() {
 		return tipo;
 	}
 
-	public boolean setTipo(TIPO_FORMULARIO tipo) {
+	public boolean setTipo(VENTANA_TIPO tipo) {
 		if (!guardado) {
 			if (!confirmarSalida()) {
 				lb.setVisible(true);				
@@ -124,6 +121,7 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 		switch (tipo) {
 		case CLIENTE:
 			lb.setTitle("Registro de Cliente");
+			lb.lbl_titulo.setText("Registro de Cliente");
 			lb.lbl_entrada1.setText("Nombres");
 			lb.lbl_entrada2.setText("Direccion");
 			lb.lbl_entrada3.setText("Cedula");
@@ -139,6 +137,7 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 			break;
 		case PROVEEDOR:
 			lb.setTitle("Registro de Proveedor");
+			lb.lbl_titulo.setText("Registro de Proveedor");
 			lb.lbl_entrada1.setText("Nombres Completos");
 			lb.lbl_entrada2.setText("Email");
 			lb.lbl_entrada3.setText("Cedula");
@@ -153,6 +152,7 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 			break;
 		case PRODUCTO:
 			lb.setTitle("Registro de Producto");
+			lb.lbl_titulo.setText("Registro de Producto");
 			lb.lbl_entrada1.setText("Nombre");
 			lb.lbl_entrada2.setText("Descripcion");
 			lb.lbl_entrada3.setText("Codigo");
@@ -168,6 +168,7 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 			break;
 		case VENTA:
 			lb.setTitle("Registro de Venta");
+			lb.lbl_titulo.setText("Registro de Venta");
 			lb.lbl_entrada1.setText("Codigo Producto");
 			lb.lbl_entrada2.setText("nombre");
 			lb.txt_entrada2.setEnabled(false);

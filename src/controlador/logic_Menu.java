@@ -2,22 +2,39 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import vista.Formulario;
+import vista.Gestion;
+import vista.Login;
 import vista.Menu;
 
-public class logic_Menu implements ActionListener{
+public class logic_Menu implements ActionListener, WindowListener{
 
 	private Menu lb;
-	private logic_Formulario lb_formulario = new logic_Formulario(new Formulario());
+	private logic_Gestion lb_gestion = new logic_Gestion(new Gestion());
+	private logic_Login lb_login;
+	
+	public enum VENTANA_TIPO{
+		CLIENTE,PROVEEDOR,PRODUCTO,VENTA
+	};
 	
 	public logic_Menu(Menu lb) {
 		this.lb = lb;
+		login();
+		lb.setDefaultCloseOperation(Menu.EXIT_ON_CLOSE);
+		listener();
 		cargarMenu();
+	}
+	
+	private void listener() {
 		lb.btn_boton1.addActionListener(this);
 		lb.btn_boton2.addActionListener(this);
 		lb.btn_boton3.addActionListener(this);
 		lb.btn_boton4.addActionListener(this);
+		lb.btn_salir.addActionListener(this);
+		lb.addWindowListener(this);
 	}
 	
 	private void cargarMenu() {
@@ -26,18 +43,70 @@ public class logic_Menu implements ActionListener{
 		lb.btn_boton3.setText("Productos");
 		lb.btn_boton4.setText("Ventas");
 	}
+	
+	private void login() {
+		lb.setVisible(false);
+		lb_login = new logic_Login(new Login());
+		lb_login.getLogin().addWindowListener(this);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == lb.btn_boton1) {
-			lb_formulario.setTipo(logic_Formulario.TIPO_FORMULARIO.CLIENTE);
+			lb_gestion.setTipo(VENTANA_TIPO.CLIENTE);
 		} else if (e.getSource() == lb.btn_boton2) {
-			lb_formulario.setTipo(logic_Formulario.TIPO_FORMULARIO.PROVEEDOR);
+			lb_gestion.setTipo(VENTANA_TIPO.PROVEEDOR);
 		} else if (e.getSource() == lb.btn_boton3) {
-			lb_formulario.setTipo(logic_Formulario.TIPO_FORMULARIO.PRODUCTO);
+			lb_gestion.setTipo(VENTANA_TIPO.PRODUCTO);
 		} else if (e.getSource() == lb.btn_boton4) {
-			lb_formulario.setTipo(logic_Formulario.TIPO_FORMULARIO.VENTA);
+			lb_gestion.setTipo(VENTANA_TIPO.VENTA);
+		} else if (e.getSource() == lb.btn_salir) {
+			lb.dispatchEvent(new WindowEvent(lb, WindowEvent.WINDOW_CLOSING));
 		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == lb_login.getLogin()) {
+			lb.setVisible(true);
+		}
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
