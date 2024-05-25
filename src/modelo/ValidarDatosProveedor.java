@@ -28,8 +28,22 @@ public class ValidarDatosProveedor {
         return telefono != null && telefono.length() >= 9 && telefono.length() <= 15 && telefono.matches("\\d+");
     }
 
-    // Método para validar la razón social (ejemplo simple: no vacío)
-    public static boolean validarRazonSocial(String razonSocial) {
-        return razonSocial != null && !razonSocial.trim().isEmpty();
+//    // Método para validar la razón social (ejemplo simple: no vacío)
+//    public static boolean validarRazonSocial(String razonSocial) {
+//        return razonSocial != null && !razonSocial.trim().isEmpty();
+//    }
+    
+    // Método para validar la razón social (persona física y persona moral)
+    public static boolean validarRazonSocial(String razonSocial, boolean esPersonaFisica) {
+        if (razonSocial == null || razonSocial.trim().isEmpty()) {
+            return false;
+        }
+        if (esPersonaFisica) {
+            // Para persona física, la razón social debe ser un solo nombre completo
+            return razonSocial.split("\\s+").length >= 2;
+        } else {
+            // Para persona moral, la razón social debe tener al menos dos palabras
+            return razonSocial.split("\\s+").length >= 2;
+        }
     }
 }

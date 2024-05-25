@@ -66,4 +66,15 @@ public class Proveedor {
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
     }
+
+	@Override
+	public String toString() {
+		return String.format("Proveedor [nombreCompleto=%s, email=%s, dni=%s, codigo=%s, telefono=%s, razonSocial=%s]",
+				nombreCompleto, email, dni, codigo, telefono, razonSocial);
+	}
+    
+	public String information() {
+		return String.format("%s;%s;%s;%s;%s;%s",
+				nombreCompleto, email, dni, codigo, telefono, razonSocial);
+	}
 }
