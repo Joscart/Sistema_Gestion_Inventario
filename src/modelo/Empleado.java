@@ -14,5 +14,9 @@ public class Empleado extends Cliente{
 				getNombre(), getDireccion(), getCedula(), getTelefono(), getCorreo());
 	}
 	
+	public String information() {
+		return String.format("%s,%s;%s;%s;%s;1", 
+				getNombre(), getDireccion(), getCedula(), getTelefono(), getCorreo());
+	}
 
 }

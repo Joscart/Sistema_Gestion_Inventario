@@ -8,6 +8,10 @@ public interface Config {
 	
 	public final String RUTA = "Datos/";
 	public final String RUTA_ABSOLUTA = getRutaAbsoluta();
+	public final String ARCHIVO_LOGIN = "db_login.txt";
+	public final String ARCHIVO_USUARIO = "db_usuario.txt";
+	public final String ARCHIVO_PROVEEDOR = "db_proveedor.txt";
+	public final String ARCHIVO_PRODUCTO = "db_producto.txt";
 	
 	private static void crearDirectorio(String ruta) {
 		File directorio = new File(ruta);
@@ -23,13 +27,19 @@ public interface Config {
 	
 	public static String getRutaEspecifica(VENTANA_TIPO tipo) {
 		String subRuta = switch (tipo) {
-		case CLIENTE -> "db_clientes/";
-		case PROVEEDOR -> "db_proveedores/";
-		case PRODUCTO -> "db_productos/";
-		case VENTA -> "db_ventas/";
+		case CLIENTE -> "Usuarios/";
+		case PROVEEDOR -> "Proveedores/";
+		case PRODUCTO -> "Productos/";
+		case VENTA -> "Registros_de_Ventas/";
 		};
 		
 		String ruta = RUTA_ABSOLUTA + subRuta;
+		crearDirectorio(ruta);
+		return ruta;
+	}
+	
+	public static String getRutaEspecifica() {
+		String ruta = RUTA_ABSOLUTA + "Login/";
 		crearDirectorio(ruta);
 		return ruta;
 	}

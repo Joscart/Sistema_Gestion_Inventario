@@ -63,7 +63,7 @@ public class Cliente {
 		}
 
 		public String information() {
-			return String.format("%s,%s;%s;%s;%s", 
+			return String.format("%s,%s;%s;%s;%s;0", 
 					nombre, direccion, cedula, telefono, correo);
 		}
 		

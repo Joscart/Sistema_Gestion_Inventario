@@ -67,7 +67,7 @@ public class Producto {
 				+ ", getstock()=" + getstock() + "]";
 	}
 	
-	public String Information() {
+	public String information() {
         return String.format("%s;%s;%.2f;%d;%s", getname(), getDesc(), getprecio(), getstock(), getproveedor());
     }
 
