@@ -2,7 +2,7 @@ package modelo;
 
 
 
-public class ValidateProducto implements Parametrizable{
+public class ValidarDatosProducto implements Parametrizable{
 	
 	public static boolean validateNames(String names) {
 		return names.matches(ERNames);

@@ -1,13 +1,13 @@
 package modelo;
 
-public class cliente {
+public class Cliente {
 	 private String nombre;
      private String direccion;
 	 private String cedula;
 	 private String telefono;
 	 private String correo;
 
-	    public cliente(String nombre, String direccion, String cedula, String telefono, String correo) {
+	    public Cliente(String nombre, String direccion, String cedula, String telefono, String correo) {
 	    	this.nombre = nombre;
 	        this.direccion = direccion;
 	        this.cedula = cedula;
@@ -58,7 +58,7 @@ public class cliente {
 
 		@Override
 		public String toString() {
-			return String.format("cliente [nombre=%s, direccion=%s, cedula=%s, telefono=%s, correo=%s]", nombre,
+			return String.format("Cliente [nombre=%s, direccion=%s, cedula=%s, telefono=%s, correo=%s]", nombre,
 					direccion, cedula, telefono, correo);
 		}
 
