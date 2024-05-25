@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="src/lib/lib_genericaP64V2.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
