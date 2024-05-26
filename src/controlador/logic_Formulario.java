@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -31,7 +32,7 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 		return tipo;
 	}
 
-	public boolean setTipo(VENTANA_TIPO tipo) {
+	public boolean setTipo(VENTANA_TIPO tipo, Rectangle... btn) {
 		if (!guardado) {
 			if (!confirmarSalida()) {
 				lb.setVisible(true);				
@@ -42,6 +43,8 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 		
 		this.tipo = tipo;
 		guardado = true;
+		if (btn.length > 0)
+			lb.setBounds(btn[0]);
 		cargarFormulario();
 		lb.setVisible(true);
 		return true;
@@ -120,8 +123,8 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 		reset();
 		switch (tipo) {
 		case CLIENTE:
-			lb.setTitle("Registro de Cliente");
-			lb.lbl_titulo.setText("Registro de Cliente");
+			lb.setTitle("Registro de Usuario");
+			lb.lbl_titulo.setText("Registro de Usuario");
 			lb.lbl_entrada1.setText("Nombres");
 			lb.lbl_entrada2.setText("Direccion");
 			lb.lbl_entrada3.setText("Cedula");
@@ -129,8 +132,10 @@ public class logic_Formulario implements ActionListener, KeyListener, WindowList
 			lb.lbl_entrada5.setText("Correo");
 			lb.lbl_entrada6.setVisible(false);
 			lb.txt_entrada6.setVisible(false);
-			lb.lbl_entrada7.setVisible(false);
-			lb.cbx_entrada7.setVisible(false);
+			lb.lbl_entrada7.setText("Tipo");
+			lb.cbx_entrada7.addItem("Cliente");
+			lb.cbx_entrada7.addItem("Empleado");
+			lb.cbx_entrada7.addItem("Administrador");
 			lb.txt_informacion.setVisible(false);
 			lb.btn_agregar.setVisible(false);
 			lb.btn_guardar.setText("Guardar");

@@ -44,9 +44,11 @@ public class ProveedorDAO implements Config{
 
 	public List<Proveedor> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_PROVEEDOR));
+		file.create(1);
 		List<Proveedor> list = new ArrayList<>();
 		String texto = file.readerFile();
 		for (String linea : texto.split("\n")) {
+			if(linea.isEmpty()) continue;
 			String[] datos = linea.split(";");
 			list.add(new Proveedor(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5]));
 		}

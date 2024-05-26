@@ -8,7 +8,7 @@ public class Usuario implements Codificador{
 	
 	private Generica<String,Date> lb = new Generica<>();
 	
-	private TIPO_USUARIO tipo;
+	private TIPO_USUARIO tipo = TIPO_USUARIO.EMPLEADO;
 	
 	public static enum TIPO_USUARIO {
 		ADMINISTRADOR, EMPLEADO
@@ -27,6 +27,18 @@ public class Usuario implements Codificador{
 	public Usuario(String nombre, String contrasena, Date fecha) {
 		super();
 		this.lb = new Generica<>(Codificador.codificar(nombre), Codificador.codificar(contrasena), fecha);
+	}
+	
+	public Usuario(String nombre, String contrasena, TIPO_USUARIO tipo) {
+		super();
+		this.lb = new Generica<>(Codificador.codificar(nombre), Codificador.codificar(contrasena), new Date());
+		this.tipo = tipo;
+	}
+	
+	public Usuario(String nombre, String contrasena, Date fecha, TIPO_USUARIO tipo) {
+		super();
+		this.lb = new Generica<>(Codificador.codificar(nombre), Codificador.codificar(contrasena), fecha);
+		this.tipo = tipo;
 	}
 
 	public String getUsuario() {
@@ -57,8 +69,12 @@ public class Usuario implements Codificador{
 		this.tipo = tipo;
 	}
 	
+	public void setTipo(String tipo) {
+		this.tipo = TIPO_USUARIO.valueOf(Codificador.decodificar(tipo));
+	}
+	
 	public String information() {
-		return String.format("%s;%s;%s;%s", lb.getAtributo1(), lb.getAtributo2(), lb.getAtributo3().getTime(), tipo.toString());
+		return Codificador.codificar(String.format("%s;%s;%s;%s", lb.getAtributo1(), lb.getAtributo2(), lb.getAtributo3().getTime(), Codificador.codificar(tipo.toString())));
 	}
 	
 }

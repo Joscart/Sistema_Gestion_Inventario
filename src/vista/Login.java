@@ -62,6 +62,7 @@ public class Login extends JFrame {
 		contentPane.add(lbl_contrasenia);
 		
 		txt_contrasenia = new JPasswordField();
+		txt_contrasenia.setColumns(10);
 		contentPane.add(txt_contrasenia);
 		
 		btn_ingresar = new JButton("New button");

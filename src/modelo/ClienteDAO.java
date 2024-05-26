@@ -45,9 +45,11 @@ public class ClienteDAO implements Config{
 
 	public List<Cliente> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_USUARIO));
+		file.create(1);
 		List<Cliente> list = new ArrayList<>();
 		String texto = file.readerFile();
 		for (String linea : texto.split("\n")) {
+			if(linea.isEmpty()) continue;
 			String[] datos = linea.split(";");
 			Cliente aux = switch (datos[5]) {
 			case "0" -> new Cliente(datos[0], datos[1], datos[2], datos[3], datos[4]);

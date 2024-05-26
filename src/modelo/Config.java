@@ -22,7 +22,7 @@ public interface Config {
 	
 	private static String getRutaAbsoluta() {
 		crearDirectorio(RUTA);
-		return new File(RUTA).getAbsolutePath();
+		return new File(RUTA).getAbsolutePath() + "/";
 	}
 	
 	public static String getRutaEspecifica(VENTANA_TIPO tipo) {
@@ -39,7 +39,7 @@ public interface Config {
 	}
 	
 	public static String getRutaEspecifica() {
-		String ruta = RUTA_ABSOLUTA + "Login/";
+		String ruta = getRutaAbsoluta() + "Login/";
 		crearDirectorio(ruta);
 		return ruta;
 	}

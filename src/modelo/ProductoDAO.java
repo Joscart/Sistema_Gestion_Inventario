@@ -44,9 +44,11 @@ public class ProductoDAO implements Config{
 
 	public List<Producto> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_PRODUCTO));
+		file.create(1);
 		List<Producto> list = new ArrayList<>();
 		String texto = file.readerFile();
 		for (String linea : texto.split("\n")) {
+			if(linea.isEmpty()) continue;
 			String[] datos = linea.split(";");
 			list.add(new Producto(datos[0], datos[1], Double.parseDouble(datos[2]), Integer.parseInt(datos[3]), datos[4]));
 		}

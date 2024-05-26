@@ -10,18 +10,41 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import controlador.logic_Menu.VENTANA_TIPO;
+import modelo.Administrador;
+import modelo.Cliente;
+import modelo.ClienteDAO;
+import modelo.Empleado;
+import modelo.LoginDAO;
+import modelo.Producto;
+import modelo.ProductoDAO;
+import modelo.Proveedor;
+import modelo.ProveedorDAO;
+import modelo.Usuario;
+import modelo.Usuario.TIPO_USUARIO;
 import vista.Formulario;
 import vista.Gestion;
 
-public class logic_Gestion implements ActionListener, KeyListener, WindowListener, MouseListener, FocusListener{
+public class logic_Gestion implements ActionListener, KeyListener, WindowListener, MouseListener, FocusListener, Dimensiones{
 	
 	private Gestion lb;
 	private logic_Formulario lb_formulario = new logic_Formulario(new Formulario());
 	private boolean guardado = true;
+	private ClienteDAO dao_cliente = new ClienteDAO();
+	private ProductoDAO dao_producto = new ProductoDAO();
+	private ProveedorDAO dao_proveedor = new ProveedorDAO();
+	private LoginDAO dao_login = new LoginDAO();
+	
+	private List<Cliente> list_usuario;
+	private List<Producto> list_producto;
+	private List<Proveedor> list_proveedor;
+	private List<Usuario> list_login;
 	
 	VENTANA_TIPO tipo;
 	
@@ -31,6 +54,37 @@ public class logic_Gestion implements ActionListener, KeyListener, WindowListene
 		lb.setDefaultCloseOperation(Gestion.HIDE_ON_CLOSE);
 		lb.setVisible(false);
 		listener();
+	}
+	
+	private void cargarList(VENTANA_TIPO tipo) throws IOException {
+		list_login = dao_login.leerDB();
+		switch (tipo) {
+		case CLIENTE:
+			list_usuario = dao_cliente.leerDB();
+			break;
+		case PROVEEDOR:
+			list_proveedor = dao_proveedor.leerDB();
+			break;
+		case PRODUCTO:
+			list_producto = dao_producto.leerDB();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private List<Usuario> clienteToUsuario(List<Cliente> list){
+		List<Usuario> list_usuarios = new ArrayList<>();
+		list.forEach(e -> {
+			if (e instanceof Empleado) {
+				if (e instanceof Administrador) {
+					list_usuarios.add(new Usuario(e.getCorreo(), e.getCedula(), TIPO_USUARIO.ADMINISTRADOR));
+				} else {
+					list_usuarios.add(new Usuario(e.getCorreo(), e.getCedula(), TIPO_USUARIO.EMPLEADO));
+				}
+			}
+		});
+		return list_usuarios;
 	}
 	
 	public VENTANA_TIPO getTipo() {
@@ -103,14 +157,21 @@ public class logic_Gestion implements ActionListener, KeyListener, WindowListene
 	
 	public void cargarGestion() {
 		reset();
+		lb.setBounds(dimensiones_gestion(tipo));
+		try {
+			cargarList(tipo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		switch (tipo) {
 		case CLIENTE:
-			lb.setTitle("Clientes");
-			lb.btn_buscar.setText("Buscar Cliente");
-			lb.btn_editar.setText("Editar Cliente");
-			lb.btn_eliminar.setText("Eliminar Cliente");
-			lb.btn_guardar.setText("Guardar Cliente");
-			lb.btn_nuevo.setText("Nuevo Cliente");
+			lb.setTitle("Usuarios");
+			lb.btn_buscar.setText("Buscar Usuario");
+			lb.btn_editar.setText("Editar Usuario");
+			lb.btn_eliminar.setText("Eliminar Usuario");
+			lb.btn_guardar.setText("Guardar Usuarios");
+			lb.btn_nuevo.setText("Nuevo Usuario");
 			break;
 		case PROVEEDOR:
 			lb.setTitle("Proveedores");
@@ -164,13 +225,19 @@ public class logic_Gestion implements ActionListener, KeyListener, WindowListene
 		if (e.getSource() == lb.btn_buscar) {
 
 		} else if (e.getSource() == lb.btn_editar) {
-			lb_formulario.setTipo(tipo);
+			lb_formulario.setTipo(tipo,dimensiones_formulario(tipo, lb.btn_editar));
 		} else if (e.getSource() == lb.btn_eliminar) {
 
 		} else if (e.getSource() == lb.btn_guardar) {
-
+			list_login = clienteToUsuario(list_usuario);
+			try {
+				dao_login.modificarDB(list_login);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == lb.btn_nuevo) {
-			lb_formulario.setTipo(tipo);
+			lb_formulario.setTipo(tipo,dimensiones_formulario(tipo, lb.btn_nuevo));
 		}
 		
 	}

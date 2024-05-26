@@ -1,20 +1,29 @@
 package controlador;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import modelo.LoginDAO;
+import modelo.Usuario;
+import modelo.Usuario.TIPO_USUARIO;
 import vista.Formulario;
 import vista.Gestion;
 import vista.Login;
 import vista.Menu;
 
-public class logic_Menu implements ActionListener, WindowListener{
+public class logic_Menu implements ActionListener, WindowListener, Dimensiones{
 
 	private Menu lb;
 	private logic_Gestion lb_gestion = new logic_Gestion(new Gestion());
 	private logic_Login lb_login;
+	
+	private Usuario tm_Usuario;
 	
 	public enum VENTANA_TIPO{
 		CLIENTE,PROVEEDOR,PRODUCTO,VENTA
@@ -23,6 +32,7 @@ public class logic_Menu implements ActionListener, WindowListener{
 	public logic_Menu(Menu lb) {
 		this.lb = lb;
 		login();
+		lb.setBounds(POS_X,POS_Y,ANCHO,ALTO);
 		lb.setDefaultCloseOperation(Menu.EXIT_ON_CLOSE);
 		listener();
 		cargarMenu();
@@ -75,7 +85,8 @@ public class logic_Menu implements ActionListener, WindowListener{
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource() == lb_login.getLogin()) {
+		if (e.getSource() == lb_login.getLogin() && lb_login.isValido()) {
+			this.tm_Usuario = lb_login.getUsuario();
 			lb.setVisible(true);
 		}
 	}
