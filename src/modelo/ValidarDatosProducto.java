@@ -20,6 +20,8 @@ public class ValidarDatosProducto implements Parametrizable{
 		return stock.matches(Erstock);
 	}
 	
-	
+	public static boolean validateCode(String code) {
+		return code.matches(ErCode);
+	}
 
 }

@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import libreria.Files;
 import modelo.Usuario.TIPO_USUARIO;
@@ -46,7 +47,7 @@ public class LoginDAO implements Config, Codificador{
 	
 	public List<Usuario> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_LOGIN));
-		List<Usuario> list = new ArrayList<>();
+		List<Usuario> list = new Vector<>();
 		if(!file.getFile().exists())
 			agregarUsuario(new Usuario("admin", "admin", TIPO_USUARIO.valueOf("ADMINISTRADOR")));
 		file.create(1);

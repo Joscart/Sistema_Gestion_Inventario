@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import controlador.logic_Menu.VENTANA_TIPO;
 import libreria.Files;
@@ -46,7 +47,7 @@ public class ClienteDAO implements Config{
 	public List<Cliente> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_USUARIO));
 		file.create(1);
-		List<Cliente> list = new ArrayList<>();
+		List<Cliente> list = new Vector<>();
 		String texto = file.readerFile();
 		for (String linea : texto.split("\n")) {
 			if(linea.isEmpty()) continue;

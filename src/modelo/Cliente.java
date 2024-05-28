@@ -58,12 +58,11 @@ public class Cliente {
 
 		@Override
 		public String toString() {
-			return String.format("Cliente [nombre=%s, direccion=%s, cedula=%s, telefono=%s, correo=%s]", nombre,
-					direccion, cedula, telefono, correo);
+			return String.format("%s, %s, %s", nombre, cedula, correo);
 		}
 
 		public String information() {
-			return String.format("%s,%s;%s;%s;%s;0", 
+			return String.format("%s;%s;%s;%s;%s;0", 
 					nombre, direccion, cedula, telefono, correo);
 		}
 		

@@ -69,8 +69,8 @@ public class Proveedor {
 
 	@Override
 	public String toString() {
-		return String.format("Proveedor [nombreCompleto=%s, email=%s, dni=%s, codigo=%s, telefono=%s, razonSocial=%s]",
-				nombreCompleto, email, dni, codigo, telefono, razonSocial);
+		return String.format("%s, %s, %s",
+				nombreCompleto, email, dni);
 	}
     
 	public String information() {

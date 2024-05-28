@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import controlador.logic_Menu.VENTANA_TIPO;
 import libreria.Files;
@@ -45,12 +46,12 @@ public class ProductoDAO implements Config{
 	public List<Producto> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_PRODUCTO));
 		file.create(1);
-		List<Producto> list = new ArrayList<>();
+		List<Producto> list = new Vector<>();
 		String texto = file.readerFile();
 		for (String linea : texto.split("\n")) {
 			if(linea.isEmpty()) continue;
 			String[] datos = linea.split(";");
-			list.add(new Producto(datos[0], datos[1], Double.parseDouble(datos[2]), Integer.parseInt(datos[3]), datos[4]));
+			list.add(new Producto(datos[0], datos[1], datos[2], Double.parseDouble(datos[3]), Integer.parseInt(datos[4]), new Proveedor(datos[5], datos[6], datos[7], datos[8], datos[9], datos[10])));
 		}
 		return list;
 	}
