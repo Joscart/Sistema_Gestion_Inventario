@@ -8,7 +8,7 @@ public class Administrador extends Empleado{
 	}
 
 	public String information() {
-		return String.format("%s,%s;%s;%s;%s;2", 
+		return String.format("%s;%s;%s;%s;%s;2", 
 				getNombre(), getDireccion(), getCedula(), getTelefono(), getCorreo());
 	}
 }

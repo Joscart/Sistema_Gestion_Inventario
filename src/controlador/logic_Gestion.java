@@ -85,16 +85,13 @@ public class logic_Gestion implements ActionListener, KeyListener, WindowListene
 
 	private List<Usuario> clienteToUsuario(List<Cliente> list){
 		List<Usuario> list_usuarios = new Vector<>();
+		list_usuarios.add(new Usuario("admin", "admin", TIPO_USUARIO.ADMINISTRADOR));
 		list.forEach(e -> {
-			for (Usuario u : list_login) {
-				if (e instanceof Empleado) {
-					if (!u.getUsuario().equals(e.getCorreo())) {					
-						if (e instanceof Administrador) {
-							list_usuarios.add(new Usuario(e.getCorreo(), e.getCedula(), TIPO_USUARIO.ADMINISTRADOR));
-						} else {
-							list_usuarios.add(new Usuario(e.getCorreo(), e.getCedula(), TIPO_USUARIO.EMPLEADO));
-						}
-					}
+			if (e instanceof Empleado) {
+				if (e instanceof Administrador) {
+					list_usuarios.add(new Usuario(e.getCorreo(), e.getCedula(), TIPO_USUARIO.ADMINISTRADOR));
+				} else {
+					list_usuarios.add(new Usuario(e.getCorreo(), e.getCedula(), TIPO_USUARIO.EMPLEADO));
 				}
 			}
 		});
@@ -326,9 +323,10 @@ public class logic_Gestion implements ActionListener, KeyListener, WindowListene
 		} else if (e.getSource() == lb.btn_guardar) {
 			switch (tipo) {
 			case CLIENTE:
-				list_login.addAll(clienteToUsuario(list_usuario));
+				list_login = clienteToUsuario(list_usuario);
 				try {
 					dao_cliente.modificarDB(list_usuario);
+					dao_login.modificarDB(list_login);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -351,12 +349,7 @@ public class logic_Gestion implements ActionListener, KeyListener, WindowListene
 				}
 				break;
 			}
-			try {
-				dao_login.modificarDB(list_login);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			JOptionPane.showMessageDialog(lb, "Guardado con exito");
 			guardado = true;
 		} else if (e.getSource() == lb.btn_nuevo) {
 			lb_formulario.setUsuario(null);

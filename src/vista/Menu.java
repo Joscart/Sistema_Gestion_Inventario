@@ -12,6 +12,10 @@ import java.awt.FlowLayout;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,6 +24,7 @@ public class Menu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel lblNewLabel;
 	public JButton btn_boton1;
 	public JButton btn_boton2;
 	public JButton btn_boton3;
@@ -54,7 +59,7 @@ public class Menu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow][grow]", "[grow][grow][grow][grow][grow][grow][grow][grow]"));
 		
-		JLabel lblNewLabel = new JLabel("BIENVENIDOS");
+		lblNewLabel = new JLabel("BIENVENIDOS");
 		lblNewLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 37));
 		contentPane.add(lblNewLabel, "cell 3 0,alignx center,aligny center");
 		
@@ -74,6 +79,12 @@ public class Menu extends JFrame {
 		contentPane.add(btn_salir, "cell 6 7,alignx right,aligny bottom");
 		
 		logic_Menu logica = new logic_Menu(this);
+	}
+	private ImageIcon imagen = new ImageIcon("Datos/Recursos/floppa.gif");
+
+	public void paint(Graphics g) {
+		g.drawImage(imagen.getImage(), 0, 0, getWidth(), getHeight(), this);
+		contentPane.paintComponents(contentPane.getGraphics());
 	}
 
 }

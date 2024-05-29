@@ -26,7 +26,7 @@ public class ClienteDAO implements Config{
 		return file.writerFile(c.information(), false);
 	}
 	
-	public boolean modificarDB(List<? extends Cliente> list) throws IOException {	
+	public synchronized boolean modificarDB(List<? extends Cliente> list) throws IOException {	
 		file.setFile(new File(RUTA_ESPECIFICA,ARCHIVO_USUARIO));
 		file.writerFile("", true);
 		
@@ -44,7 +44,7 @@ public class ClienteDAO implements Config{
 		return flag;
 	}
 
-	public List<Cliente> leerDB() throws IOException {
+	public synchronized List<Cliente> leerDB() throws IOException {
 		file.setFile(new File(RUTA_ESPECIFICA, ARCHIVO_USUARIO));
 		file.create(1);
 		List<Cliente> list = new Vector<>();

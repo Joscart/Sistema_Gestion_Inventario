@@ -8,7 +8,7 @@ public class Empleado extends Cliente{
 	}
 	
 	public String information() {
-		return String.format("%s,%s;%s;%s;%s;1", 
+		return String.format("%s;%s;%s;%s;%s;1", 
 				getNombre(), getDireccion(), getCedula(), getTelefono(), getCorreo());
 	}
 
